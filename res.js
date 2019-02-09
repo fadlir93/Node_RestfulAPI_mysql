@@ -32,10 +32,20 @@ exports.read_a_person = function(req, res) {
     });
 }
 
-exports.update_a_task = function(req, res) {
+exports.update_a_person = function(req, res) {
     Person.updateById(req.params.personId, new Person(req.body), function(err, person) {
         if(err)
             res.send(err);
             res.json(person);
+    })
+}
+
+exports.delete_a_person = function(req, res) {
+    Person.remove(req.params.personId, function(err, person) {
+        if(err)
+        res.send(err);
+        res.json({
+            message: 'Person Successfully Deleted'
+        });
     })
 }

@@ -8,6 +8,7 @@ app.route('/person')
 
 app.route('/person/:personId')
     .get(todoList.read_a_person)
-    .put(todoList.update_a_task)
+    .put(todoList.update_a_person)
+    .delete(todoList.delete_a_person)
 }
 

@@ -41,14 +41,25 @@ Person.getPersonById = function getPersonById(personId, result){
     })
 }
 
-Person.updateById = function(id, firstname, result){
-    connection.query('UPDATE person SET first_name = ?WHERE id = ?', [firstname.first_name, id], function (err,res) {
+Person.updateById = function(id, person, result){
+    connection.query('UPDATE person SET first_name = ?, last_name = ? WHERE id = ?', [person.first_name,person.last_name, id], function (err,res) {
         if(err) {
             result(null, err);
         } else {
             result(null, firstname);
         }
     });
+}
+
+Person.remove = function(id, result) {
+    connection.query("DELETE FROM person WHERE id =?", [id], function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(null, err);
+        } else {
+            result(null, res)
+        }
+    })
 }
 // exports.index = function(req, res) {
 //     response.ok('Hello Nice to Meet you !', res)
