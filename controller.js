@@ -1,18 +1,38 @@
 'use strict';
 
-var response = require('./res');
 var connection = require('./conn');
 
-exports.users = function(req, res) {
-    connection.query('SELECT * FROM person', function(error, rows, fields) {
-        if(error){
-            console.log(error)
+var Person = function(person) {
+    this.first_name = person.first_name;
+    this.last_name = person.last_name;
+}
+
+Person.createPerson = function createPerson(newPerson, result) {
+    connection.query('INSERT INTO person set ?', newPerson, function (err, res) {
+        if(err) {
+            console.log('error :', err);
+            result(err, null);
         } else {
-            response.ok(rows, res)
+            console.log(res);
+            result(null, newPerson)
         }
     })
 }
 
-exports.index = function(req, res) {
-    response.ok('Hello Nice to Meet you !', res)
-};
+Person.getAllPerson = function getAllPerson(result) {
+    connection.query('SELECT * from person', function (err,res) {
+        if(err) {
+            console.log('error: ', err);
+            result(null, err);
+        } else {
+            console.log('Person :', res);
+            result(null, res);
+        }
+    })
+}
+
+// exports.index = function(req, res) {
+//     response.ok('Hello Nice to Meet you !', res)
+// };
+
+module.exports = Person;
