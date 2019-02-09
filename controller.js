@@ -40,6 +40,16 @@ Person.getPersonById = function getPersonById(personId, result){
         }
     })
 }
+
+Person.updateById = function(id, firstname, result){
+    connection.query('UPDATE person SET first_name = ?WHERE id = ?', [firstname.first_name, id], function (err,res) {
+        if(err) {
+            result(null, err);
+        } else {
+            result(null, firstname);
+        }
+    });
+}
 // exports.index = function(req, res) {
 //     response.ok('Hello Nice to Meet you !', res)
 // };
