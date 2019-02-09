@@ -31,6 +31,15 @@ Person.getAllPerson = function getAllPerson(result) {
     })
 }
 
+Person.getPersonById = function getPersonById(personId, result){
+    connection.query('SELECT first_name, last_name from person where id = ?', personId, function(err, res) {
+        if(err) {
+            console.log("error: ", err);
+        } else {
+            result(null, res)
+        }
+    })
+}
 // exports.index = function(req, res) {
 //     response.ok('Hello Nice to Meet you !', res)
 // };

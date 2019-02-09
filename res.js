@@ -23,3 +23,11 @@ exports.list_all_person = function(req, res) {
             res.send(person)
     })
 }
+
+exports.read_a_person = function(req, res) {
+    Person.getPersonById(req.params.personId, function(err, person) {
+        if(err)
+            res.send(err);
+            res.json(person);
+    });
+}
